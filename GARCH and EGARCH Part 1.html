@@ -1,0 +1,1407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0054)https://quantumfinancier.wordpress.com/2010/09/12/381/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" class="wf-sourcecodepro-n4-active wf-sourcecodepro-i4-active wf-sourcecodepro-n7-active wf-sourcecodepro-i7-active wf-active"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="https://graph.facebook.com/?callback=WPCOMSharing.update_facebook_count&amp;ids=https%3A%2F%2Fquantumfinancier.wordpress.com%2F2010%2F09%2F12%2F381%2F&amp;_=1470931286158"></script>
+
+<title>Basic Introduction to GARCH and EGARCH (part 1) | Quantum Financier</title>
+<!--[if lt IE 8]><link rel="stylesheet" type="text/css" media="screen" href="https://s0.wp.com/wp-content/themes/pub/vigilance/stylesheets/ie.css" /><![endif]-->
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="https://s0.wp.com/wp-content/themes/pub/vigilance/stylesheets/ie6.css" /><![endif]-->
+<link rel="pingback" href="https://quantumfinancier.wordpress.com/xmlrpc.php">
+<script async="" src="./GARCH and EGARCH Part 1_files/beacon.js"></script><script src="./GARCH and EGARCH Part 1_files/webfont.js" type="text/javascript" async=""></script><script type="text/javascript">
+  WebFontConfig = {"google":{"families":["Source+Code+Pro:r:latin,latin-ext","Source+Code+Pro:r,i,b,bi:latin,latin-ext"]}};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://s1.wp.com/wp-content/plugins/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active #title{font-family:"Source Code Pro",monospace;font-weight:400;font-style:normal}.wf-active #title a:link, .wf-active #title a:visited{font-style:normal;font-weight:400}.wf-active body{font-family:"Source Code Pro",monospace}.wf-active #nav{font-family:"Source Code Pro",monospace}.wf-active .post .date{font-family:"Source Code Pro",monospace}.wf-active .entry .float-quote p{font-family:"Source Code Pro",monospace}.wf-active .highlight-box{font-family:"Source Code Pro",monospace}.wf-active div.c-date{font-family:"Source Code Pro",monospace}.wf-active .c-permalink a:link, .wf-active .c-permalink a:visited{font-family:"Source Code Pro",monospace}.wf-active div.reply a:link, .wf-active div.reply a:visited{font-family:"Source Code Pro",monospace}.wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5{font-family:"Source Code Pro",monospace;font-style:normal;font-weight:400}.wf-active .post-header h1, .wf-active .post-header h2{font-style:normal;font-weight:400}.wf-active .entry h2, .wf-active .entry h3, .wf-active .entry h4{font-style:normal;font-weight:400}.wf-active .entry h3{font-style:normal;font-weight:400}.wf-active .entry h4{font-style:normal;font-weight:400}.wf-active h1.pagetitle, .wf-active h2.pagetitle{font-style:normal;font-weight:400}.wf-active h2.widgettitle{font-weight:400;font-family:"Source Code Pro",monospace;font-style:normal}.wf-active #reply-title, .wf-active h4#postcomment{font-style:normal;font-weight:400}</style>
+<link rel="alternate" type="application/rss+xml" title="Quantum Financier » Feed" href="https://quantumfinancier.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Quantum Financier » Comments Feed" href="https://quantumfinancier.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Quantum Financier » Basic Introduction to GARCH and EGARCH (part 1) Comments Feed" href="https://quantumfinancier.wordpress.com/2010/09/12/381/feed/">
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<link rel="stylesheet" id="all-css-0" href="./GARCH and EGARCH Part 1_files/saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-1" href="./GARCH and EGARCH Part 1_files/global-print.css" type="text/css" media="print">
+<link rel="stylesheet" id="all-css-2" href="./GARCH and EGARCH Part 1_files/saved_resource(1)" type="text/css" media="all">
+<link rel="stylesheet" href="./GARCH and EGARCH Part 1_files/css" media="all"><script type="text/javascript" src="./GARCH and EGARCH Part 1_files/saved_resource(2)"></script><style type="text/css"></style>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://quantumfinancier.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Improved Key Perfomance Statistics" href="https://quantumfinancier.wordpress.com/2010/09/10/improved-key-perfomance-statistics/">
+<link rel="next" title="Basic Introduction to GARCH and EGARCH (part 2)" href="https://quantumfinancier.wordpress.com/2010/09/14/basic-introduction-to-garch-and-egarch-part-2/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://quantumfinancier.wordpress.com/2010/09/12/381/">
+<link rel="shortlink" href="http://wp.me/pUkvP-69">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Fquantumfinancier.wordpress.com%2F2010%2F09%2F12%2F381%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Fquantumfinancier.wordpress.com%2F2010%2F09%2F12%2F381%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Basic Introduction to GARCH and EGARCH (part 1)">
+<meta property="og:url" content="https://quantumfinancier.wordpress.com/2010/09/12/381/">
+<meta property="og:description" content="As request by several readers in light of the previous series of post on using GARCH(1,1) to forecast volatility, here is a very basic introduction post on two models widely used in finance: the GA…">
+<meta property="article:published_time" content="2010-09-12T21:03:06+00:00">
+<meta property="article:modified_time" content="2010-09-13T12:40:10+00:00">
+<meta property="og:site_name" content="Quantum Financier">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@QFinancier">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@QFinancier">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://quantumfinancier.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://quantumfinancier.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://quantumfinancier.wordpress.com/osd.xml" title="Quantum Financier">
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com">
+		<style id="wpcom-hotfix-masterbar-style">
+			@media screen and (min-width: 783px) {
+				#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
+					margin-top: 5px;
+				}
+			}
+		</style>
+				<style type="text/css" media="screen">
+			body { background-color: #002b36; }
+			#wrapper{
+				padding: 0 20px 10px 20px;
+				border-left: 4px solid #eee8d5;
+				border-right: 4px solid #eee8d5;
+			}
+			.sticky .entry {
+				background-color: ##eee8d5;
+				padding: 10px;
+			}
+			.alert-box, .highlight-box { border: 1px solid #eee8d5; }
+			#content a:link, #content a:visited { color: #b58900; }
+			#sidebar a:link, #sidebar a:visited { color: #b58900; }
+			#title a:hover { color: #b58900; }
+			#nav ul li a:hover, #nav ul li:hover > a, #nav ul li.current_page_item > a, #nav ul li.current_page_parent > a, #nav ul li.current_page_ancestor > a, #nav ul li.current-cat > a, #nav ul li.current-menu-ancestor > a, #nav ul li.current-menu-item > a, #nav ul li.current-menu-parent a {
+				color: #b58900;
+				border-top: 4px solid #b58900;
+			}
+			.post-header h1 a:hover, .post-header h2 a:hover { color: #b58900; }
+			.comments a:hover { color: #b58900; }
+			.meta a:hover { color: #b58900; }
+			.post-footer a:hover { color: #b58900; }
+			#footer a:hover { color: #b58900; }
+			#content .entry a:hover { color: #dc322f; }
+			#wrapper #sidebar a:hover { color: #dc322f; }
+			#content .post-header h1 a:hover, #content .post-header h2 a:hover { color: #b58900; }
+			#content .comments a:hover { color: #b58900; }
+			#content .meta a:hover { color: #b58900; }
+			#content .reply a:hover { color: #b58900; }
+			#content .reply a:link, #reply .c-permalink a:visited { color: #aaa; }
+			#content .c-permalink a:link, #content .c-permalink a:visited { color: #ccc; }
+			#content .post-footer a:link, #content .post-footer a:visited { color: #333; }
+			#content .comments a { color: #757575;  }
+			#footer a:hover { color: #b58900; }
+			#footer a:link, #footer a:visited { color: #666; }
+		</style>
+
+		
+		<style type="text/css" media="screen">
+			#wrapper{ background: #fff; }
+			#content .post-header h1 a:link, #content .post-header h1 a:visited, #content .post-header h2 a:link, #content .post-header h2 a:visited  { color: #444; }
+			#content .meta a:link, #content .meta a:visited { color: #666; }
+		</style>
+
+		
+			<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Quantum Financier"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="On algorithmic trading"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://quantumfinancier.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Read Freshly Pressed;action-uri=http://wordpress.com/#fresh;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Basic Introduction to GARCH and EGARCH (part 1) | Quantum Financier on WordPress.com">
+<meta name="description" content="As request by several readers in light of the previous series of post on using GARCH(1,1) to forecast volatility, here is a very basic introduction post on two models widely used in finance: the GARCH and EGARCH. One of the great tools of statistics used in finance is the least square model (not exclusively the…">
+	<style type="text/css">
+				#title a { color: #444444 }
+		</style>
+<link rel="amphtml" href="https://quantumfinancier.wordpress.com/2010/09/12/381/amp/"><style type="text/css" media="print">#wpadminbar { display:none; }</style>
+<style type="text/css" media="screen">
+	html { margin-top: 32px !important; }
+	* html body { margin-top: 32px !important; }
+	@media screen and ( max-width: 782px ) {
+		html { margin-top: 46px !important; }
+		* html body { margin-top: 46px !important; }
+	}
+</style>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./GARCH and EGARCH Part 1_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./GARCH and EGARCH Part 1_files/services.css"></head>
+<body class="single single-post postid-381 single-format-standard logged-in admin-bar no-customize-support mp6 customizer-styles-applied vigilance-light highlander-enabled highlander-light">
+	<div class="skip-content"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#content">Skip to content</a></div>
+	<div id="wrapper">
+				<div id="header" class="clear">
+			<div id="title"><a href="https://quantumfinancier.wordpress.com/"><span>Quantum Financier</span></a></div>			<div id="description">
+				<h2>On algorithmic trading</h2>
+			</div><!--end description-->
+			<div id="nav">
+					<ul class="menu">
+		<li class="page_item "><a href="https://quantumfinancier.wordpress.com/">Home</a></li>
+				<li class="page_item page-item-2"><a href="https://quantumfinancier.wordpress.com/about/">About QF</a></li>
+<li class="page_item page-item-92"><a href="https://quantumfinancier.wordpress.com/contact/">Contact</a></li>
+	</ul>
+			</div><!--end nav-->
+		</div><!--end header-->
+		<div id="content" class="pad">
+									<div id="post-381" class="post-381 post type-post status-publish format-standard hentry category-uncategorized">
+			<div class="post-header">
+				<h1>Basic Introduction to GARCH and EGARCH (part&nbsp;1)</h1>
+				<div id="single-date" class="date">September 12, 2010</div>
+			</div><!--end post header-->
+			<div class="meta clear">
+				<div class="tags"></div>
+				<div class="author">
+									</div>
+			</div><!--end meta-->
+			<div class="entry clear">
+								<p>As request by several readers in light of the previous series of post on using GARCH(1,1) to forecast volatility, here is a very basic introduction post on two models widely used in finance: the GARCH and EGARCH.</p>
+<p>One of the great tools of statistics used in finance is the least square model (not exclusively the linear least squares). For the neophyte, the least square model is used to determine the variation of a dependant variable in response to a change in another variable(s) called independent or predictor(s). When we fit a model, the difference between the predicted value and the actual value is called the error term, or residual, it is denoted by the Greek letter epsilon (<img src="./GARCH and EGARCH Part 1_files/latex.php" alt="\epsilon" title="\epsilon" class="latex" width="7" height="7" srcset="https://s0.wp.com/latex.php?latex=%5Cepsilon&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">). As mentioned in one of my all time favorite blog post: <a href="http://quantivity.wordpress.com/2009/08/02/wonder-of-residuals/">Wonder of Residuals</a> by <a href="http://quantivity.wordpress.com/">Quantivity</a>, there is a myriad of information and uses to this construct.</p>
+<p>When we fit a model, we are, or I am anyway (!), interested in analyzing the size of errors. One of the basic assumptions of the least square model is that the squared error (squared to eliminate the effect of negative numbers) stays constant across every data point in the model. The term used for this equal variance assumption is homoskedasticity. However, with financial time series variance (read volatility or risk) cannot always be assumed constant, browsing through financial data, we can see that some periods are more volatile than others. Keeping this in mind, when fitting a model, this translates to a greater magnitude in the residuals. In addition, these spikes in variance are not randomly placed in time; there is an auto-correlation effect present. In simple terms, we call it volatility clustering, meaning that periods of high variance tend to group up together; think VIX spikes for example. Non-constant variance is referred as heteroskedasticity. This is where the GARCH model comes in, and helps us find a volatility measures that we can use to forecast the residuals in our models and relax the often flawed equal residuals assumption.</p>
+<p>Before talking about the GARCH model, I have to quickly introduce its very close cousin, the ARCH (autoregressive conditional heteroskedasticity) model. Consider what must be the easiest way to forecast volatility; the rolling x day standard deviation. Say we look at it on a yearly (252 days) basis. Equipped with the value of this historical standard deviation we want to forecast the value for the next day. Central tendency statistics tells us that the mean is the best guess. I can already hear some of you cringe at the idea. </p>
+<p>Using the mean, every 252 observation is equally weighted. However, wouldn’t it make more sense for the more recent observations to weight more? We could perhaps use an exponentially weighted average to solve this problem, but still isn’t the best solution. Another observation could be made about this method; it forgets any data points older than 252 days (their weight is 0). This weighting scheme is not the most desirable for quantitatively oriented investors as they are rather arbitrary. In comes the ARCH model where the weights applied on the residuals are automatically estimated to the best parameters (<a href="http://cssanalytics.wordpress.com/">David Varadi</a> would call it <a href="http://cssanalytics.wordpress.com/2010/04/09/level-2-adaptation-the-adaptive-rsi/">level 1 adaptation</a>). The generalized ARCH model (GARCH) is based on the same principle but with time, the weights get progressively smaller, never reaching 0.</p>
+<p>In the previous series of post, I used the GARCH model of order (1,1). Defined like this, the model predicts the period’s variance by looking at the weighted average of the long term historical variance, the predicted variance for the period (second 1, also called the number of GARCH terms) and the previous day squared residual (first 1, also called number of ARCH terms). Or more formally:</p>
+<p><img src="./GARCH and EGARCH Part 1_files/latex(1).php" alt="h_{t+1}=\omega + \alpha \epsilon_t^2 + \beta h_t" title="h_{t+1}=\omega + \alpha \epsilon_t^2 + \beta h_t" class="latex" width="149" height="18" srcset="https://s0.wp.com/latex.php?latex=h_%7Bt%2B1%7D%3D%5Comega+%2B+%5Calpha+%5Cepsilon_t%5E2+%2B+%5Cbeta+h_t&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"></p>
+<p>Where <em>h</em> denotes variance, <img src="./GARCH and EGARCH Part 1_files/latex(2).php" alt="\epsilon^2" title="\epsilon^2" class="latex" width="13" height="14" srcset="https://s0.wp.com/latex.php?latex=%5Cepsilon%5E2&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"> the squared residual, and <em>t</em> the period. The constants <img src="./GARCH and EGARCH Part 1_files/latex(3).php" alt="\omega, \alpha, \beta," title="\omega, \alpha, \beta," class="latex" width="50" height="14" srcset="https://s0.wp.com/latex.php?latex=%5Comega%2C+%5Calpha%2C+%5Cbeta%2C&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"> must be estimated and updated by the model every period using maximum likelihood. (The explanation for this is beyond the scope of this blog, I recommend using statistical software like R for implementation.) Additionally, one could change the order to change the number of ARCH and GARCH terms included in your model. Sometimes more lags are needed to accurately forecast volatility.</p>
+<p>Caution is to be exercised by the user; this is not an end all be all method and it is entirely possible for resulting prediction to be completely different than the true variance. Always check your work and perform diagnostic tests like the Ljung box test to confirm that there is no auto-correlation left in the squared residuals.</p>
+<p>Few, it was a long one, I hope that the first part of the post, made the GARCH model more approachable and that this introduction was useful. I encourage you to comment if areas of the post could be made clearer. Finally, stay tuned for part 2 where I am going to give another example of GARCH(1,1)  for a value-at-risk estimation (a fairly popular application in academic literature) and part 3 on the EGARCH!</p>
+<p>QF</p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="https://quantumfinancier.wordpress.com/2010/09/12/381/?share=email&amp;nb=1" target="_blank" title="Click to email"><span>Email</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-381" class="share-facebook sd-button share-icon" href="https://quantumfinancier.wordpress.com/2010/09/12/381/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-381" class="share-twitter sd-button share-icon" href="https://quantumfinancier.wordpress.com/2010/09/12/381/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-13425221-381-57aca15514765" data-src="//widgets.wp.com/likes/#blog_id=13425221&amp;post_id=381&amp;origin=quantumfinancier.wordpress.com&amp;obj_id=13425221-381-57aca15514765" data-name="like-post-frame-13425221-381-57aca15514765"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-13425221-381-57aca15514765" height="55px" width="100%" frameborder="0" src="./GARCH and EGARCH Part 1_files/saved_resource.html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="419" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://quantumfinancier.wordpress.com/2010/09/14/basic-introduction-to-garch-and-egarch-part-2/" title="Basic Introduction to GARCH and EGARCH (part 2)
+
+As promised in last post, we will look at a popular implementation of the GARCH(1,1) model: the value-at-risk. I chose this implementation because it is used quite often in academic literature and for its educational purpose. The value-at-risk, also abbreviated VaR, is a measure of the risk for a portfolio.…" rel="nofollow" data-origin="381" data-position="0">Basic Introduction to GARCH and EGARCH (part 2)</a></span><span class="jp-relatedposts-post-context">With 3 comments</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="489" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://quantumfinancier.wordpress.com/2010/10/28/be-careful-what-you-wish-for/" title="Be Careful What You Wish For
+
+It is in the human nature to seek the path of least resistance. While this might be good in some instances, when dealing with my capital I usually try to keep it simple but I try to always steer clear from intellectual laziness. Many top tier bloggers have mentioned the…" rel="nofollow" data-origin="381" data-position="1">Be Careful What You Wish For</a></span><span class="jp-relatedposts-post-context">With 12 comments</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="430" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://quantumfinancier.wordpress.com/2010/09/23/basic-introduction-to-garch-and-egarch-part-3/" title="Basic Introduction to GARCH and EGARCH (part 3)
+
+Here is the final part of the series of posts on the volatility modelling where I will briefly talk about one of the many variant of the GARCH model: the exponential GARCH (abbreviated EGARCH). I chose this variant because it improves the GARCH model and better model some market mechanics.…" rel="nofollow" data-origin="381" data-position="2">Basic Introduction to GARCH and EGARCH (part 3)</a></span><span class="jp-relatedposts-post-context">With 9 comments</span></p></div></div></div>											</div><!--end entry-->
+			<div class="post-footer">
+				<div class="categories">from → <a href="https://quantumfinancier.wordpress.com/category/uncategorized/" rel="category tag">Uncategorized</a></div>
+			</div><!--end post footer-->
+		</div><!--end post-->
+				<div class="navigation post single clear">
+			<div class="alignleft"><a href="https://quantumfinancier.wordpress.com/2010/09/10/improved-key-perfomance-statistics/" rel="prev">← Improved Key Perfomance&nbsp;Statistics</a></div>
+			<div class="alignright"><a href="https://quantumfinancier.wordpress.com/2010/09/14/basic-introduction-to-garch-and-egarch-part-2/" rel="next">Basic Introduction to GARCH and EGARCH (part&nbsp;2) →</a></div>
+		</div><!--end pagination-->
+		<!-- You can start editing here. -->
+<div id="comments">
+	<div class="comment-number">
+		<span>21 Comments</span>
+		</div><!--end comment-number-->
+			<ol class="commentlist">
+			
+			<li class="comment even thread-even depth-1 highlander-comment" id="comment-161">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/82f18386aa0ec663c6f6515b4fcad2e1" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://2.gravatar.com/avatar/82f18386aa0ec663c6f6515b4fcad2e1?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-82f18386aa0ec663c6f6515b4fcad2e1-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						Mark <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-161">permalink</a></span>					</div>
+					<div class="c-date">
+						September 12, 2010 21:40					</div>
+										<p>Excellent explanation; You found the right balance between academic and practitioners alike. Spot-on!<br>
+Thank you,</p>
+<p>-Mark-</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor odd alt depth-2 highlander-comment" id="comment-162">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-162">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						September 12, 2010 22:08					</div>
+										<p>Thank you Mark, I really appreciate the feedback !</p>
+<p>Cheers,<br>
+QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+			<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-163">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/682047a0da45cf21c80aa7757cb00c57" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/682047a0da45cf21c80aa7757cb00c57?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-682047a0da45cf21c80aa7757cb00c57-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						mg <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-163">permalink</a></span>					</div>
+					<div class="c-date">
+						September 13, 2010 03:22					</div>
+										<p>Should there be the h_t in  the second term?</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor odd alt depth-2 highlander-comment" id="comment-166">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-1"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-166">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						September 13, 2010 07:56					</div>
+										<p>Hi mg,</p>
+<p>In short no, could you give more details as to why? Just to clarify this is a model of order (1,1); only one ARCH and GARCH term. Let me know it is still confusing.</p>
+<p>Cheers,<br>
+QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment even depth-3 highlander-comment" id="comment-169">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/682047a0da45cf21c80aa7757cb00c57" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/682047a0da45cf21c80aa7757cb00c57?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-682047a0da45cf21c80aa7757cb00c57-1"></div>
+				<div class="c-body">
+					<div class="c-head">
+						mg <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-169">permalink</a></span>					</div>
+					<div class="c-date">
+						September 13, 2010 09:36					</div>
+										<p>I see a h_t in the second term, which doesn’t look right.</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor odd alt depth-4 highlander-comment" id="comment-170">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-2"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-170">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						September 13, 2010 09:42					</div>
+										<p>!! you are correct. I apologize for not catching it before and thank you for pointing it out. It was my first time using latex!</p>
+<p>Cheers,<br>
+QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+			<li class="comment even depth-3 highlander-comment" id="comment-171">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/682047a0da45cf21c80aa7757cb00c57" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/682047a0da45cf21c80aa7757cb00c57?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-682047a0da45cf21c80aa7757cb00c57-2"></div>
+				<div class="c-body">
+					<div class="c-head">
+						mg <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-171">permalink</a></span>					</div>
+					<div class="c-date">
+						September 13, 2010 09:54					</div>
+										<p>No worries, just a silly typo. Thanks for sharing and writing on these topics.</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+			<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-164">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/0d9142eafa04e637830c724c54e2cf23" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/0d9142eafa04e637830c724c54e2cf23?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-0d9142eafa04e637830c724c54e2cf23-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						BlackSwan <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-164">permalink</a></span>					</div>
+					<div class="c-date">
+						September 13, 2010 04:38					</div>
+										<p>Very informative post. Recently stumbled upon your blog and am impressed. Thank you for your time/effort and very much look forward to future contributions. </p>
+<p>If a successful discretionary trader was just starting to consider a more robust &amp; quantitative prototyping/modeling platform with very little programming experience… any strong preferences among matlab, octave or R? R is financially most attractive, but time/learning curve represent their own hidden cost. Matlab documentation appears excellent but unsure if the license cost is worth it over long haul.  I’m an independent non-quant background using TT X-trader execution, CQG charting, and Tradestation (EasyLanguage) back/forward simulation. Interested in sampling other ways to trade futures/ccy markets that complement current strats. Any input much appreciated.</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor even depth-2 highlander-comment" id="comment-168">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-3"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-168">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						September 13, 2010 08:07					</div>
+										<p>Hi BlackSwan,</p>
+<p>Thank you for nice words and the question. I didn’t try much in terms of platforms so I can only comment on what I know. I do have a strong preference towards R compared to matlab (the savings do it for me). For the learning curve, I think R’s is fairly steep, I found learning the basics easy. I am in no way an expert and get stuck from time to time but every time someone in the great R community already answered the problem online. For research R is a must if you ask me, the quality of libraries available for quantitative finance is just amazing. However I never tried to implement a strategy using R, I hear the IBroker compatibility is in development; I am impatiently waiting! Hope this helps.</p>
+<p>Cheers<br>
+QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-165">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/35687c092ffcd99f88a515d2076e6129" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/35687c092ffcd99f88a515d2076e6129?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-35687c092ffcd99f88a515d2076e6129-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						EajkEajk <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-165">permalink</a></span>					</div>
+					<div class="c-date">
+						September 13, 2010 06:20					</div>
+										<p>Thx QF,</p>
+<p>I was looking for a comprehensive introduction to GARCH and your post fits my need perfectly. I am impatient to read the next parts.</p>
+<p>Eric</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor even depth-2 highlander-comment" id="comment-167">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-4"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-167">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						September 13, 2010 07:57					</div>
+										<p>Hi EajkEajk – thank you for the kind comment.</p>
+<p>Cheers,<br>
+QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+			<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-175">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/1a5cdac066c007965559ccf1e9c8f7c5" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/1a5cdac066c007965559ccf1e9c8f7c5?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-1a5cdac066c007965559ccf1e9c8f7c5-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						Justin <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-175">permalink</a></span>					</div>
+					<div class="c-date">
+						September 15, 2010 07:50					</div>
+										<p>Hi QF, I’m following you to test GARCH model of volatility. To see the fitness of model, I need to compare the model prediction and realized volatility, which depends on a given time window of historical returns, for example, 10 days of historical returns. It seems that a short time window gives a better fitness than a long time window, do you think so?</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor even depth-2 highlander-comment" id="comment-177">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-5"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-177">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						September 15, 2010 08:44					</div>
+										<p>Hi Justin,</p>
+<p>Just to make sure I understand your question correctly, you are talking about mean out-of-sample right? If so, then yes the model performs better in the beginning of the period as we would expect it since the model was recently trained.</p>
+<p>Cheers,<br>
+QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment odd alt depth-3 highlander-comment" id="comment-178">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/1a5cdac066c007965559ccf1e9c8f7c5" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/1a5cdac066c007965559ccf1e9c8f7c5?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-1a5cdac066c007965559ccf1e9c8f7c5-1"></div>
+				<div class="c-body">
+					<div class="c-head">
+						Justin <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-178">permalink</a></span>					</div>
+					<div class="c-date">
+						September 16, 2010 00:15					</div>
+										<p>THX QF.<br>
+Excuse me for my obscure words. I am not a native English speaker so that I don’t express myself well<img class="emoji" draggable="false" alt="😀" src="./GARCH and EGARCH Part 1_files/1f600.svg" scale="0">.  What I was trying to say is to do in-the-sample comparison. I compared the garch volatilities with the true volatilities. However, to calculate the true vol, I need to decide the number of days to do calculation. If I use 10 days of returns to calculate the true vol, it seems that it matches the garch vol well. If I use 60 days, the match is not so good. So is there a thumb rule for the choice of number of days? It seems that the shorter, the better</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor even depth-4 highlander-comment" id="comment-179">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-6"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-179">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						September 16, 2010 08:47					</div>
+										<p>Hi Justin,</p>
+<p>Good question, I usually use 20-21 days, but note that this is a completely arbitrary choice.</p>
+<p>Cheers,<br>
+QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-243">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/3dbd6c9895e0984e3b7fed09cd870a58" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/3dbd6c9895e0984e3b7fed09cd870a58?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-3dbd6c9895e0984e3b7fed09cd870a58-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="http://blog.hiremebecauseimsmart.com/post/1101306957/dma" rel="external nofollow" class="url">volatile smile</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-243">permalink</a></span>					</div>
+					<div class="c-date">
+						November 2, 2010 04:39					</div>
+										<p>Check this out from U Chicago. <a href="http://faculty.chicagobooth.edu/john.cochrane/research/Papers/time_series_book.pdf" rel="nofollow">http://faculty.chicagobooth.edu/john.cochrane/research/Papers/time_series_book.pdf</a></p>
+<p>I got it from Reddit, I would say it’s the clearest introduction to ARMA around.</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment byuser comment-author-jipibelanger bypostauthor even depth-2 highlander-comment" id="comment-244">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/4ed98db8c2c7c8ebd9e09fcf72d30bbf" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/4ed98db8c2c7c8ebd9e09fcf72d30bbf?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-4ed98db8c2c7c8ebd9e09fcf72d30bbf-7"></div>
+				<div class="c-body">
+					<div class="c-head">
+						<a href="https://quantumfinancier.wordpress.com/" rel="external nofollow" class="url">Quantum Financier</a> <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-244">permalink</a></span><span class="asterisk">*</span>					</div>
+					<div class="c-date">
+						November 2, 2010 09:16					</div>
+										<p>Very nice, thanks a lot!</p>
+<p>QF</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+			<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-429">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/a43815972db5df675304ecc1b95eaf03" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://1.gravatar.com/avatar/a43815972db5df675304ecc1b95eaf03?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-a43815972db5df675304ecc1b95eaf03-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						John <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-429">permalink</a></span>					</div>
+					<div class="c-date">
+						May 10, 2012 02:30					</div>
+										<p>Any idea how you would use the GARCH model in testing the Day of the Week effect anomaly?</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+
+			<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-437">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/9988bbbba06e4aa85edafd14007e24c3" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/9988bbbba06e4aa85edafd14007e24c3?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-9988bbbba06e4aa85edafd14007e24c3-0"></div>
+				<div class="c-body">
+					<div class="c-head">
+						CJ <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-437">permalink</a></span>					</div>
+					<div class="c-date">
+						January 25, 2013 02:49					</div>
+										<p>I recently got introduced to GARCH and its predictive aspect by one my students and my interest in it has piqued partly as a academic reasons (I teach C++) and partly for its applicability in a stock market. Although, I am a novice in financial stats and greek symbols but I have read about 20-30 blogs/PDFs on GARCH in past 1 week and also thumbed thru quantlib implementation. I have come to realize that the three greeks (alpha, omega and beta) are constants that are parameters being fed into the model. So, naturally, the most important question is what are the most optimal values for these three. And 2nd most important question is how do you use it to predict high/low for the very next-day.</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+<ul class="children">
+
+			<li class="comment odd alt depth-2 highlander-comment" id="comment-438">
+			<div class="c-grav"><img alt="" src="./GARCH and EGARCH Part 1_files/9988bbbba06e4aa85edafd14007e24c3" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" originals="60" src-orig="https://0.gravatar.com/avatar/9988bbbba06e4aa85edafd14007e24c3?s=60&amp;d=identicon&amp;r=G" scale="2" id="grav-9988bbbba06e4aa85edafd14007e24c3-1"></div>
+				<div class="c-body">
+					<div class="c-head">
+						CJ <span class="c-permalink"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/#comment-438">permalink</a></span>					</div>
+					<div class="c-date">
+						January 25, 2013 03:09					</div>
+										<p>I did read your blog again after initial comment. What exactly does “maximum likelihood” mean?</p>
+										<div class="reply">
+											</div>
+									</div><!--end c-body-->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol>
+		<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+			<h3 class="pinghead">Trackbacks</h3>
+		<ol class="pinglist">
+				<li id="comment-221"><a href="https://quantumfinancier.wordpress.com/2010/10/28/be-careful-what-you-wish-for/" rel="external nofollow" class="url">Be Careful What You Wish For « Quantum Financier</a></li><!-- #comment-## -->
+		</ol>
+				<p class="note">Comments are closed.</p>
+	</div><!--end comments-->
+
+			</div><!--end content-->
+	<div id="sidebar">
+				<ul>			<li id="image-5" class="widget widget_image"><div style="overflow:hidden;"><a href="http://quantocracy.com/"><img src="./GARCH and EGARCH Part 1_files/badge-square-180.png" class="alignnone" width="180" height="180" scale="0"></a></div>
+</li><li id="blog_subscription-3" class="widget widget_blog_subscription"><h2 class="widgettitle"><label for="subscribe-field">Email Subscription</label></h2>
+				<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="subscribe-blog">
+											<p>Click to subscribe to Quantum Financier and receive notifications of new posts by email.</p>
+					
+					<p>
+						<input type="hidden" name="action" value="subscribe">
+						<input type="hidden" name="blog_id" value="13425221">
+						<input type="hidden" name="source" value="https://quantumfinancier.wordpress.com/2010/09/12/381/">
+						<input type="hidden" name="sub-type" value="widget">
+						<input type="hidden" name="redirect_fragment" value="blog_subscription-3">
+						<input type="hidden" id="_wpnonce" name="_wpnonce" value="e90e167292">						<input type="submit" value="Sign me up!">
+					</p>
+				</form>
+			
+</li><li id="linkcat-1356" class="widget widget_links"><h2 class="widgettitle">Selected Blogroll</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://cssanalytics.wordpress.com/">CSS Analytics</a></li>
+<li><a href="http://intelligenttradingtech.blogspot.com/">Intelligent Trading Tech</a></li>
+<li><a href="http://www.jonathankinlay.com/">Jonathan Kinlay</a></li>
+<li><a href="http://marketsci.wordpress.com/">MarketSci</a></li>
+<li><a href="http://quantifiableedges.blogspot.com/">Quantifiable Edges</a></li>
+<li><a href="http://quantivity.wordpress.com/">Quantivity</a></li>
+<li><a href="http://www.quantnews.com/">QuantNews</a></li>
+<li><a href="http://qusma.com/">QUSMA</a></li>
+<li><a href="https://systematicedge.wordpress.com/">Systematic Edge</a></li>
+<li><a href="http://www.thewholestreet.com/">The Whole Street</a></li>
+<li><a href="http://tr8dr.wordpress.com/">Tr8dr</a></li>
+<li><a href="http://tradingwithpython.blogspot.com/">Trading with Python</a></li>
+<li><a href="http://www.turingfinance.com/">Turing Finance</a></li>
+<li><a href="http://vixandmore.blogspot.com/">Vix and More</a></li>
+
+	</ul>
+</li>
+<li id="top-posts-4" class="widget widget_top-posts"><h2 class="widgettitle">Top Posts &amp; Pages</h2><ul>				<li>
+										<a href="https://quantumfinancier.wordpress.com/2010/06/26/support-vector-machine-rsi-system/" class="bump-view" data-bump-view="tp">
+						Support Vector Machine RSI System					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2010/08/27/regime-switching-system-using-volatility-forecast/" class="bump-view" data-bump-view="tp">
+						Regime Switching System Using Volatility Forecast 					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2010/09/12/381/" class="bump-view" data-bump-view="tp">
+						Basic Introduction to GARCH and EGARCH (part 1)					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2010/09/23/basic-introduction-to-garch-and-egarch-part-3/" class="bump-view" data-bump-view="tp">
+						Basic Introduction to GARCH and EGARCH (part 3)					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2010/09/14/basic-introduction-to-garch-and-egarch-part-2/" class="bump-view" data-bump-view="tp">
+						Basic Introduction to GARCH and EGARCH (part 2)					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2010/05/27/volatility-autocorrelation-in-different-markets/" class="bump-view" data-bump-view="tp">
+						Volatility Autocorrelation in Different Markets					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2011/02/15/models-scalability/" class="bump-view" data-bump-view="tp">
+						Model Scalability					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2011/04/24/one-size-does-not-fit-all/" class="bump-view" data-bump-view="tp">
+						One Size Does Not Fit All					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2011/07/01/ensemble-building-101/" class="bump-view" data-bump-view="tp">
+						Ensemble Building 101					</a>
+									</li>
+							<li>
+										<a href="https://quantumfinancier.wordpress.com/2010/10/25/using-r-for-algorithmic-trading/" class="bump-view" data-bump-view="tp">
+						Using R For Algorithmic Trading					</a>
+									</li>
+			</ul></li>		<li id="recent-posts-4" class="widget widget_recent_entries">		<h2 class="widgettitle">Recent Posts</h2>		<ul>
+					<li>
+				<a href="https://quantumfinancier.wordpress.com/2016/01/10/give-me-good-data-or-give-me-death/">Give me good data, or give me&nbsp;death</a>
+						</li>
+					<li>
+				<a href="https://quantumfinancier.wordpress.com/2015/03/23/99-problems-but-a-backtest-aint-one/">99 Problems But A Backtest Ain’t&nbsp;One</a>
+						</li>
+					<li>
+				<a href="https://quantumfinancier.wordpress.com/2015/03/17/hello-old-friend/">Hello Old Friend</a>
+						</li>
+					<li>
+				<a href="https://quantumfinancier.wordpress.com/2011/12/28/what-to-expect-in-2012/">2012 Wishes</a>
+						</li>
+					<li>
+				<a href="https://quantumfinancier.wordpress.com/2011/07/01/ensemble-building-101/">Ensemble Building 101</a>
+						</li>
+				</ul>
+		</li>		<li id="archives-4" class="widget widget_archive"><h2 class="widgettitle">Archives</h2>		<ul>
+			<li><a href="https://quantumfinancier.wordpress.com/2016/01/">January 2016</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2015/03/">March 2015</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2011/12/">December 2011</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2011/07/">July 2011</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2011/04/">April 2011</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2011/02/">February 2011</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2011/01/">January 2011</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2010/12/">December 2010</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2010/11/">November 2010</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2010/10/">October 2010</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2010/09/">September 2010</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2010/08/">August 2010</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2010/06/">June 2010</a></li>
+	<li><a href="https://quantumfinancier.wordpress.com/2010/05/">May 2010</a></li>
+		</ul>
+		</li><li id="text-5" class="widget widget_text"><h2 class="widgettitle">Disclaimer</h2>			<div class="textwidget">The content of this blog is provided for informational purposes only. Nothing herein should ever be considered investment advice or recommendation to buy, sell or hold any securities. Simulated past performance of a trading strategies does not necessarily accurately represents future performance. All information herein is not guaranteed to be error free. All trading decisions you make should be your own based on your own analysis and you should accept full responsibility for the profits/losses incurred during actual trading.</div>
+		</li>		</ul>															</div><!--end sidebar-->	<div id="footer">
+		<div class="footer-liner">
+			<p class="right"><a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com.</a></p>
+			<p></p>
+		</div><!-- .footer-liner -->
+	</div><!--end footer-->
+</div><!--end wrapper-->
+<!-- wpcom_wp_footer -->
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		jQuery(document).ready( function($) {
+			function doFollowingHover() {
+				$('#wp-admin-bar-follow > a').unbind( '.unfollow' );
+
+				$('#wp-admin-bar-follow > a').bind( 'mouseover.unfollow', function() {
+
+					$(this).html( "Unfollow" ).parent( 'li' ).addClass( 'unfollow' );
+				});
+				$('#wp-admin-bar-follow > a').bind( 'mouseout.unfollow', function() {
+					$(this).html( "Following" ).parent( 'li' ).removeClass( 'unfollow' );
+				});
+			}
+			
+			$('#wp-admin-bar-follow > a').click( function( e ) {
+				$('#wp-admin-bar-follow > a').unbind( '.unfollow' );
+
+				e.preventDefault();
+
+				var link = $( this ), li = $( '#wp-admin-bar-follow' ), timeout = 0;
+
+				if ( li.hasClass( 'subscribed' ) ) {
+					li.removeClass( 'subscribed' ).removeClass( 'unfollow' );
+					link.html( "Follow" );
+
+					$('body').append( $( 'div.wpcom-bubble' ).removeClass( 'fadein' ) ).off( 'click.bubble' );
+
+					var action = 'ab_unsubscribe_from_blog';
+				} else {
+					li.addClass( 'subscribed' ).removeClass( 'unfollow' );
+					link.html( "Following" );
+
+						var left = 131 - link.width();
+						li.append( $( 'div.wpcom-bubble' ).css( { left: '-' + left + 'px' } ) );
+						$( 'div.bubble-txt', 'div.wpcom-bubble' ).html( "New posts from this blog will now appear in <a target=\"_blank\" href=\"http:\/\/wordpress.com\/\">your reader<\/a>. You can manage email alerts from your <a target=\"_blank\" href=\"http:\/\/wordpress.com\/following\/edit\/\">subscriptions page<\/a>." );
+
+						$( 'div.wpcom-bubble.action-bubble' ).addClass( 'fadein' );
+
+						setTimeout( function() {
+							$('body').on( 'click.bubble touchstart.bubble', function(e) {
+								if ( !$(e.target).hasClass('wpcom-bubble') && !$(e.target).parents( 'div.wpcom-bubble' ).length )
+									hideBubble();
+							});
+							setTimeout( hideBubble, 15000 );
+						}, 500 );
+
+					var action = 'ab_subscribe_to_blog';
+					$('#wp-admin-bar-follow > a').bind( 'mouseout.shift', function() {
+						doFollowingHover();
+						$(this).unbind( '.shift' );
+					});
+				}
+
+				var nonce = link.attr( 'href' ).split( '_wpnonce=' );
+				nonce = nonce[1];
+
+				$.post( "https:\/\/quantumfinancier.wordpress.com\/wp-admin\/admin-ajax.php", {
+					'action': action,
+					'_wpnonce': nonce,
+					'source': 'admin_bar',
+					'blog_id': 13425221				});
+			});
+		});
+	/* ]]> */
+	</script>
+<script type="text/javascript" src="./GARCH and EGARCH Part 1_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":"5eaa21f6dcf569877d587b70ac7f27f0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GARCH and EGARCH Part 1_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-82f18386aa0ec663c6f6515b4fcad2e1">
+	</div>
+	<div class="grofile-hash-map-4ed98db8c2c7c8ebd9e09fcf72d30bbf">
+	</div>
+	<div class="grofile-hash-map-682047a0da45cf21c80aa7757cb00c57">
+	</div>
+	<div class="grofile-hash-map-0d9142eafa04e637830c724c54e2cf23">
+	</div>
+	<div class="grofile-hash-map-35687c092ffcd99f88a515d2076e6129">
+	</div>
+	<div class="grofile-hash-map-1a5cdac066c007965559ccf1e9c8f7c5">
+	</div>
+	<div class="grofile-hash-map-3dbd6c9895e0984e3b7fed09cd870a58">
+	</div>
+	<div class="grofile-hash-map-a43815972db5df675304ecc1b95eaf03">
+	</div>
+	<div class="grofile-hash-map-9988bbbba06e4aa85edafd14007e24c3">
+	</div>
+	</div>
+
+	<div id="ab-reblog-box">
+		<form action="https://quantumfinancier.wordpress.com/2010/09/12/381/" name="reblog">
+			<textarea id="reblog-content" name="reblog-content" placeholder="Add your thoughts here... (optional)"></textarea>
+			<label for="blogid" id="lblogid">Post to</label>
+
+			<select name="to_blog_id" id="reblog-to-blog-id">
+														<option value="83430668">exlwebmaster</option>
+														<option value="64149203">VBA and VB.Net Programming Service</option>
+							</select>
+
+			<div class="submit">
+				<span class="canceltext"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/" class="cancel">Cancel</a></span>
+				<input type="submit" name="reblog-submit" class="button-primary" id="reblog-submit" value="Reblog Post">
+				<input type="hidden" id="original-blog-id" value="13425221">
+				<input type="hidden" id="original-post-id" value="381">
+			</div>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="a688ffb474"><input type="hidden" name="_wp_http_referer" value="/2010/09/12/381/">		</form>
+
+		<div class="arrow"></div>
+	</div>
+
+	<script type="text/javascript">
+	var wpcom_reblog = {
+		request: false,
+		source: 'toolbar',
+
+		init: function() {
+			// Click reblog button on post
+			jQuery(document).on( 'click', '#wpadminbar .reblog', function(e) {
+				e.preventDefault();
+				wpcom_reblog.source = 'toolbar';
+
+				if ( jQuery( '#wpadminbar #ab-reblog-box' ).is( ':visible' ) ) {
+					wpcom_reblog.cancel_reblog();
+				}
+				else {
+					wpcom_reblog.show_reblog_box();
+				}
+			} );
+
+			// Clicked reblog button on already reblogged post.
+			jQuery(document).on( 'click', '#wpadminbar .reblogged', function(e) {
+				e.preventDefault();
+			});
+
+			// Click cancel reblog button
+			jQuery(document).on( 'click', '#ab-reblog-box a.cancel', function(e) {
+				e.preventDefault();
+				wpcom_reblog.cancel_reblog();
+			});
+
+			// Submit reblog box
+			jQuery(document).on( 'click', '#ab-reblog-box input[type=submit]', function(e) {
+				e.preventDefault();
+				wpcom_reblog.submit_reblog( jQuery(this) );
+			});
+		},
+
+		show_reblog_box: function() {
+			return this.show_reblog_box_here(
+				'#wp-admin-bar-wpr-reblog',
+				'#wpadminbar'
+			);
+		},
+
+		toggle_reblog_box_flair: function( obj_id ) {
+			if ( jQuery( '#jp-post-flair #ab-reblog-box' ).is( ':visible' ) ) {
+				wpcom_reblog.cancel_reblog();
+			}
+			else {
+				wpcom_reblog.show_reblog_box_flair( obj_id );
+			}
+		},
+
+		show_reblog_box_flair: function( obj_id ) {
+			this.source = 'post_flair';
+			this.obj_id = obj_id;
+			return this.show_reblog_box_here(
+				'.post-likes-widget',
+				'body'
+			);
+		},
+
+		show_reblog_box_here: function(anchorId, parentId) {
+			var jq = jQuery,
+			    $anchor = jq( anchorId ),
+			    $parent = jq( parentId ),
+			    $window = jq( window ),
+			    $scroll = jq('html, body'),
+			    $reblog_box = jq( '#ab-reblog-box' ),
+			    offset = $anchor.offset(),
+			    left = offset.left + 'px',
+			    width = '500px',
+			    position,
+			    top;
+
+			if ( $parent.css( 'position' ) === 'fixed' ) {
+				position = 'fixed';
+				top = $parent.position().top + $parent.outerHeight();
+			}
+			else {
+				position = 'absolute';
+				top = offset.top + $anchor.outerHeight() + 'px';
+			}
+			$reblog_box.remove();
+			$parent.append( $reblog_box );
+			$anchor.addClass( 'selected' );
+
+			if ( jq( window ).innerWidth() < offset.left + 500 ) {
+				// Most likely mobile or tablet
+				left = '0px';
+				width = ( jq( window ).innerWidth() - 24 ) + 'px';
+			}
+
+			$reblog_box
+				.find('p.response').remove().end()
+				.find('div.submit, div.submit span.canceltext').show().end()
+				.find('div.submit input[type=submit]').prop('disabled',false).end()
+				.show()
+				.css({
+					top : top,
+					left : left,
+					width : width,
+					position: position,
+					'z-index': 10 // slide under twentyfourteen's fixed-positioned masthead
+				});
+
+			// Ensure we can see the whole reblog box
+			var docViewTop = $window.scrollTop(),
+			    windowHeight = $window.height(),
+			    docViewBottom = docViewTop + windowHeight,
+			    elemTop = $reblog_box.offset().top,
+			    elemHeight = $reblog_box.outerHeight() + 10,
+			    elemBottom = elemTop + elemHeight;
+			if ( docViewTop > elemTop ) {
+				// Need to scroll up
+				// leave 75px for toolbar + Reblog button + margin
+				$scroll.animate({scrollTop: elemTop - 75});
+			}
+			else if ( docViewBottom < elemBottom ) {
+				// Need to scroll down
+				$scroll.animate({scrollTop: elemBottom - windowHeight}, 100);
+			}
+		},
+
+		submit_reblog: function( input ) {
+			var jq = jQuery;
+			var self = this;
+			if ( typeof this.request == 'object' )
+				this.request.abort();
+
+			input.attr( 'value', 'Reblogging...' );
+			input.prop( 'disabled', true );
+
+			jq( '#ab-reblog-box div.submit span.canceltext' ).fadeOut( 150, function() {
+				input.before( '<span class="spinner"></span>' );
+			});
+
+			var note = jq('#ab-reblog-box textarea').val();
+
+			if ( jq('#default-reblog-note').val() == note )
+				note = "";
+
+			this.request = jq.get( '/wp-admin/admin-ajax.php', {
+				'action': 'post_reblog',
+				'original_blog_id': jq('#original-blog-id').val(),
+				'original_post_id': jq('#original-post-id').val(),
+				'blog_id': jq('#ab-reblog-box select').val(),
+				'note': note,
+				'_wpnonce': jq('#ab-reblog-box #_wpnonce').val(),
+				'reblog_source': this.source
+			},
+			function(result, status, jqxhr) {
+				if ( ! ( "type" in result ) ) {
+					alert( "Error: " + jqxhr.responseText );
+				}
+				else if ( "error" == result.type ) {
+					alert( result.message );
+				}
+				else {
+					if ( typeof pm === 'function' ) {
+						console.log(self);
+						pm({
+							target : window.frames['likes-master'],
+							type : 'likesMessage',
+							data : { event: 'didReblog', obj_id: self.obj_id },
+							origin : '*'
+						});
+					}
+
+					jq( '#ab-reblog-box' ).hide();
+					jq( '#wp-admin-bar-wpr-reblog' ).addClass( 'reblogged' ).removeClass( 'reblog' ).find( 'a:first' ).text( 'Reblogged' );
+				}
+			}, 'json' );
+		},
+
+		cancel_reblog: function() {
+			jQuery( '#ab-reblog-box' ).hide();
+			jQuery( '#wp-admin-bar-wpr-reblog' ).removeClass( 'selected' );
+		}
+	};
+
+	wpcom_reblog.init();
+	</script>
+<div id="report-form-window" style="display:none;"></div>
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/quantumfinancier.wordpress.com\/2010\/09\/12\/381\/":381};
+	</script>
+	
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+		<script type="text/javascript">
+/* <![CDATA[ */
+var thickboxL10n = {"next":"Next >","prev":"< Prev","image":"Image","of":"of","close":"Close","noiframes":"This feature requires inline frames. You have iframes disabled or your browser does not support them.","loadingAnimation":"https:\/\/s1.wp.com\/wp-includes\/js\/thickbox\/loadingAnimation.gif"};
+var thickboxL10n = {"next":"Next >","prev":"< Prev","image":"Image","of":"of","close":"Close","noiframes":"This feature requires inline frames. You have iframes disabled or your browser does not support them.","loadingAnimation":"https:\/\/s1.wp.com\/wp-includes\/js\/thickbox\/loadingAnimation.gif"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpNotesArgs = {"cacheBuster":"20160329","iframeUrl":"https:\/\/widgets.wp.com\/notificationsbeta\/","iframeAppend":"2","iframeScroll":"no","wide":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcom_tos_report_form = {"ajaxurl":"\/wp-admin\/admin-ajax.php","isLoggedoutUser":"","post_ID":"381","current_url":"https:\/\/quantumfinancier.wordpress.com\/2010\/09\/12\/381","report_this_content":"Report this content"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"13425221","siteName":"Quantum Financier","siteURL":"http:\/\/quantumfinancier.wordpress.com","icon":"<img alt='' src='https:\/\/s1.wp.com\/i\/void.gif' class='avatar avatar-36' height='36' width='36' \/>","canManageOptions":"","canCustomizeSite":"","isFollowing":"","themeSlug":"pub\/vigilance","themeURL":"","xhrURL":"https:\/\/quantumfinancier.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"e2b6114911","isSingular":"1","isFolded":"","customizeLink":"https:\/\/quantumfinancier.wordpress.com\/wp-admin\/customize.php?url=https%3A%2F%2Fquantumfinancier.wordpress.com%2F2010%2F09%2F12%2F381%2F","postID":"381","shortlink":"http:\/\/wp.me\/pUkvP-69","canEditPost":"","editLink":"https:\/\/wordpress.com\/post\/quantumfinancier.wordpress.com\/381","i18n":{"view":"View Site","follow":"Follow","following":"Following","edit":"Edit","customize":"Customize","report":"Report this content","themeInfo":"Get theme: Vigilance","shortlink":"Copy shortlink","copied":"Copied","followedText":"New posts from this site will now appear in your <a href=\"https:\/\/wordpress.com\/\">Reader<\/a>","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","editSubs":"Manage Sites I Follow","viewReader":"View Site in the Reader"}};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./GARCH and EGARCH Part 1_files/saved_resource(3)"></script><div id="actionbar" class="actnbr-pub-vigilance actnbr-has-follow"><ul><li class="actnbr-btn actnbr-hidden"> 			    	<a class="actnbr-action actnbr-actn-follow" href="https://quantumfinancier.wordpress.com/2010/09/12/381/"><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span>Follow</span></a> 			    	<div class="actnbr-popover tip tip-top-left actnbr-notice"> 			    		<div class="tip-arrow"></div> 			    		<div class="tip-inner"> 			    			New posts from this site will now appear in your <a href="https://wordpress.com/">Reader</a> 			    		</div> 			    	</div> 			    </li><li class="actnbr-ellipsis actnbr-hidden"> 			  <svg class="gridicon gridicon__ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><circle cx="5" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle></g></svg> 			  <div class="actnbr-popover tip tip-top-left actnbr-more"> 			  	<div class="tip-arrow"></div> 			  	<div class="tip-inner"> 				  <ul> 				    <li class="actnbr-sitename actnbr-hidden"><a href="http://quantumfinancier.wordpress.com/"><img alt="" src="./GARCH and EGARCH Part 1_files/void.gif" class="avatar avatar-36" height="36" width="36" scale="0"> Quantum Financier</a></li> 				   	<li class="actnbr-folded-customize actnbr-hidden"><a href="https://quantumfinancier.wordpress.com/wp-admin/customize.php?url=https%3A%2F%2Fquantumfinancier.wordpress.com%2F2010%2F09%2F12%2F381%2F"><svg class="gridicon gridicon__customize" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M2 6c0-1.505.78-3.08 2-4 0 .845.69 2 2 2 1.657 0 3 1.343 3 3 0 .386-.08.752-.212 1.09.74.594 1.476 1.19 2.19 1.81L8.9 11.98c-.62-.716-1.214-1.454-1.807-2.192C6.753 9.92 6.387 10 6 10c-2.21 0-4-1.79-4-4zm12.152 6.848l1.34-1.34c.607.304 1.283.492 2.008.492 2.485 0 4.5-2.015 4.5-4.5 0-.725-.188-1.4-.493-2.007L18 9l-2-2 3.507-3.507C18.9 3.188 18.225 3 17.5 3 15.015 3 13 5.015 13 7.5c0 .725.188 1.4.493 2.007L3 20l2 2 6.848-6.848c1.885 1.928 3.874 3.753 5.977 5.45l1.425 1.148 1.5-1.5-1.15-1.425c-1.695-2.103-3.52-4.092-5.448-5.977z" data-reactid=".2.1.1:0.1b.0"></path></g></svg><span>Customize<span></span></span></a></li> 				    <li class="actnbr-folded-follow actnbr-hidden"><a class="actnbr-action actnbr-actn-follow" href="https://quantumfinancier.wordpress.com/2010/09/12/381/"><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span>Follow</span></a></li> 				     				    <li class="actnbr-shortlink actnbr-hidden"><a href="http://wp.me/pUkvP-69">Copy shortlink</a></li> 				    <li class="flb-report actnbr-hidden"><a href="http://en.wordpress.com/abuse/">Report this content</a></li> 				    <li class="actnbr-reader actnbr-hidden"><a href="https://wordpress.com/read/blogs/13425221">View Site in the Reader</a></li> 				    <li class="actnbr-subs actnbr-hidden"><a href="https://wordpress.com/following/edit">Manage Sites I Follow</a></li> 				    <li class="actnbr-fold actnbr-hidden"><a href="https://quantumfinancier.wordpress.com/2010/09/12/381/">Collapse this bar</a></li> 			      </ul> 			    </div> 		      </div> 		    </li> 	      </ul></div>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>		<iframe src="./GARCH and EGARCH Part 1_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script>
+			var _comscore = _comscore || [];
+			_comscore.push({
+				c1: "2",
+				c2: "7518284"
+			});
+			(function() {
+				var s = document.createElement("script"),
+					el = document.getElementsByTagName("script")[0];
+				s.async = true;
+				s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+				el.parentNode.insertBefore(s, el);
+			})();
+		</script>
+		<noscript>
+			&lt;p class="robots-nocontent"&gt;&lt;img src="https://sb.scorecardresearch.com/p?c1=2&amp;c2=7518284&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c15=&amp;cv=2.0&amp;cj=1" alt="" style="display:none;" width="1" height="1" /&gt;&lt;/p&gt;
+		</noscript><script src="./GARCH and EGARCH Part 1_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['identifyUser', 79380319, 'exlwebmaster']);
+_tkq.push(['storeContext', {'blog_id':'13425221','blog_tz':'-5','user_lang':'en','blog_lang':'en'}]);
+_stq.push(['view', {'blog':'13425221','v':'wpcom','tz':'-5','user_id':'79380319','post':'381','subd':'quantumfinancier'}]);
+_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1zNDZ8S252Wis9XUQyb3YrcUVIU2R0VH5TdWI5d350TFdaeXR4OFRqPytqcHcxeT1JUVVCclRNUmxkUWhYX21NQTlVZzhBNUIuelNvP3h3aThYOGNxRFcmR3EyalZIczZtJSZDPzIweDh3d29iLzBbSDVNcHlSMUNxdyZafm9RU3NuSk5LZ0hkUn5iVWUuK2gzektFZy42c0c4YWl6bEUsMi5zRkxBTGhGen52K2J8RUxDeEMtPWtrK0xdRmx5QiZMNmJPaWt4a2FDeFlJcnZSa2lUWmcseVFtJWgxeW1kPyZVWiYxbEdTcXR1LHk1SFNxLk9tJisyS08sOFNrcTZJWjVtbE1ubUVIM2QufmdkTmd8T1A0WDA5WG9zcS40'}]);
+_stq.push([ 'clickTrackerInit', '13425221', '381' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+		<div id="wpadminbar" class="ltr">
+							<a class="screen-reader-shortcut" href="https://quantumfinancier.wordpress.com/2010/09/12/381/#wp-toolbar" tabindex="1">Skip to toolbar</a>
+						<div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar" tabindex="0">
+						<ul id="wp-admin-bar-root-default" class="ab-top-menu">
+			
+		<li id="wp-admin-bar-blog" class="menupop my-sites"><a class="ab-item" aria-haspopup="true" href="https://wordpress.com/stats/quantumfinancier.wordpress.com">My Sites</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-info" class="all-my-sites">		<div class="ab-item ab-empty-item"><div class="ab-site-icon"></div><a href="https://wordpress.com/stats"><span class="ab-site-title">All My Sites</span><span class="ab-site-description">Manage all my sites</span></a></div>		</li>
+		<li id="wp-admin-bar-switch-site" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://wordpress.com/sites">Switch Site</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-my-sites" class="ab-sub-secondary ab-submenu">
+			
+		<li id="wp-admin-bar-blog-83430668" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://exlwebmaster.wordpress.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">exlwebmaster</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-83430668-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-83430668-d"><a class="ab-item" href="https://exlwebmaster.wordpress.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-83430668-n"><a class="ab-item" href="https://wordpress.com/post/exlwebmaster.wordpress.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-83430668-s"><a class="ab-item" href="https://wordpress.com/stats/exlwebmaster.wordpress.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-83430668-c"><a class="ab-item" href="https://exlwebmaster.wordpress.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-83430668-v"><a class="ab-item" href="http://exlwebmaster.wordpress.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-99946593" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://bigbikemad.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Big Bike Mad</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-99946593-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-99946593-d"><a class="ab-item" href="https://bigbikemad.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-99946593-n"><a class="ab-item" href="https://wordpress.com/post/bigbikemad.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-99946593-s"><a class="ab-item" href="https://wordpress.com/stats/bigbikemad.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-99946593-c"><a class="ab-item" href="https://bigbikemad.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-99946593-v"><a class="ab-item" href="http://bigbikemad.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-96197465" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://dailysnack.co/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Daily Snack</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-96197465-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-96197465-d"><a class="ab-item" href="https://dailysnack.co/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-96197465-n"><a class="ab-item" href="https://wordpress.com/post/dailysnack.co">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-96197465-s"><a class="ab-item" href="https://wordpress.com/stats/dailysnack.co">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-96197465-c"><a class="ab-item" href="https://dailysnack.co/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-96197465-v"><a class="ab-item" href="http://dailysnack.co/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-99117726" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://dentureadhesives.net/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Denture Adhesives</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-99117726-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-99117726-d"><a class="ab-item" href="https://dentureadhesives.net/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-99117726-n"><a class="ab-item" href="https://wordpress.com/post/dentureadhesives.net">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-99117726-s"><a class="ab-item" href="https://wordpress.com/stats/dentureadhesives.net">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-99117726-c"><a class="ab-item" href="https://dentureadhesives.net/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-99117726-v"><a class="ab-item" href="http://dentureadhesives.net/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-96047778" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://finalfourreviews.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Final Four Reviews</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-96047778-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-96047778-d"><a class="ab-item" href="https://finalfourreviews.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-96047778-n"><a class="ab-item" href="https://wordpress.com/post/finalfourreviews.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-96047778-s"><a class="ab-item" href="https://wordpress.com/stats/finalfourreviews.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-96047778-c"><a class="ab-item" href="https://finalfourreviews.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-96047778-v"><a class="ab-item" href="http://finalfourreviews.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-72644971" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://www.fullnetworth.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Full Net Worth</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-72644971-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-72644971-d"><a class="ab-item" href="https://www.fullnetworth.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-72644971-n"><a class="ab-item" href="https://wordpress.com/post/www.fullnetworth.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-72644971-s"><a class="ab-item" href="https://wordpress.com/stats/www.fullnetworth.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-72644971-c"><a class="ab-item" href="https://www.fullnetworth.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-72644971-v"><a class="ab-item" href="http://www.fullnetworth.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-100365000" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://girlsaround.me/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Girls Around Me</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-100365000-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-100365000-d"><a class="ab-item" href="https://girlsaround.me/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-100365000-n"><a class="ab-item" href="https://wordpress.com/post/girlsaround.me">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-100365000-s"><a class="ab-item" href="https://wordpress.com/stats/girlsaround.me">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-100365000-c"><a class="ab-item" href="https://girlsaround.me/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-100365000-v"><a class="ab-item" href="http://girlsaround.me/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-99663886" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://www.leather-sofa.org/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Leather Sofa Guide</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-99663886-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-99663886-d"><a class="ab-item" href="https://www.leather-sofa.org/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-99663886-n"><a class="ab-item" href="https://wordpress.com/post/www.leather-sofa.org">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-99663886-s"><a class="ab-item" href="https://wordpress.com/stats/www.leather-sofa.org">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-99663886-c"><a class="ab-item" href="https://www.leather-sofa.org/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-99663886-v"><a class="ab-item" href="http://www.leather-sofa.org/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-95181069" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://shop.makeoverly.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Makeoverly</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-95181069-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-95181069-d"><a class="ab-item" href="https://shop.makeoverly.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-95181069-n"><a class="ab-item" href="https://wordpress.com/post/shop.makeoverly.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-95181069-s"><a class="ab-item" href="https://wordpress.com/stats/shop.makeoverly.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-95181069-c"><a class="ab-item" href="https://shop.makeoverly.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-95181069-v"><a class="ab-item" href="http://shop.makeoverly.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-98227139" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://managefibromyalgia.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Managing Fibromyalgia</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-98227139-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-98227139-d"><a class="ab-item" href="https://managefibromyalgia.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-98227139-n"><a class="ab-item" href="https://wordpress.com/post/managefibromyalgia.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-98227139-s"><a class="ab-item" href="https://wordpress.com/stats/managefibromyalgia.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-98227139-c"><a class="ab-item" href="https://managefibromyalgia.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-98227139-v"><a class="ab-item" href="http://managefibromyalgia.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-100167546" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://revoltoftheplebs.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Revolt Of The Plebs</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-100167546-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-100167546-d"><a class="ab-item" href="https://revoltoftheplebs.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-100167546-n"><a class="ab-item" href="https://wordpress.com/post/revoltoftheplebs.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-100167546-s"><a class="ab-item" href="https://wordpress.com/stats/revoltoftheplebs.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-100167546-c"><a class="ab-item" href="https://revoltoftheplebs.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-100167546-v"><a class="ab-item" href="http://revoltoftheplebs.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-100132801" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://segboards.co/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">SegBoards</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-100132801-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-100132801-d"><a class="ab-item" href="https://segboards.co/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-100132801-n"><a class="ab-item" href="https://wordpress.com/post/segboards.co">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-100132801-s"><a class="ab-item" href="https://wordpress.com/stats/segboards.co">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-100132801-c"><a class="ab-item" href="https://segboards.co/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-100132801-v"><a class="ab-item" href="http://segboards.co/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-99719246" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://software-solutions-online.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">Software Solutions Online</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-99719246-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-99719246-d"><a class="ab-item" href="https://software-solutions-online.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-99719246-n"><a class="ab-item" href="https://wordpress.com/post/software-solutions-online.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-99719246-s"><a class="ab-item" href="https://wordpress.com/stats/software-solutions-online.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-99719246-c"><a class="ab-item" href="https://software-solutions-online.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-99719246-v"><a class="ab-item" href="http://software-solutions-online.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-64149203" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://pedrumjalali.wordpress.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">VBA and VB.Net Programming Service</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-64149203-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-64149203-d"><a class="ab-item" href="https://pedrumjalali.wordpress.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-64149203-n"><a class="ab-item" href="https://wordpress.com/post/pedrumjalali.wordpress.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-64149203-s"><a class="ab-item" href="https://wordpress.com/stats/pedrumjalali.wordpress.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-64149203-c"><a class="ab-item" href="https://pedrumjalali.wordpress.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-64149203-v"><a class="ab-item" href="http://pedrumjalali.wordpress.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-99657143" class="menupop"><a class="ab-item" aria-haspopup="true" href="http://whatwhey.com/"><img src="./GARCH and EGARCH Part 1_files/w-32.png" alt="Blavatar" width="16" height="16" scale="0">WhatWhey</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-blog-99657143-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-blog-99657143-d"><a class="ab-item" href="https://whatwhey.com/wp-admin/">WP Admin</a>		</li>
+		<li id="wp-admin-bar-blog-99657143-n"><a class="ab-item" href="https://wordpress.com/post/whatwhey.com">New Post</a>		</li>
+		<li id="wp-admin-bar-blog-99657143-s"><a class="ab-item" href="https://wordpress.com/stats/whatwhey.com">Stats</a>		</li>
+		<li id="wp-admin-bar-blog-99657143-c"><a class="ab-item" href="https://whatwhey.com/wp-admin/edit-comments.php">Manage Comments</a>		</li>
+		<li id="wp-admin-bar-blog-99657143-v"><a class="ab-item" href="http://whatwhey.com/">Read Blog</a>		</li>		</ul>
+	</div>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-blog-stats" class="mb-icon"><a class="ab-item" href="https://wordpress.com/stats">Stats</a>		</li>		</ul>
+			<ul id="wp-admin-bar-blog-secondary" class="ab-sub-secondary ab-submenu">
+			
+		<li id="wp-admin-bar-wpcom_report_url"><a class="ab-item" href="https://en.wordpress.com/complaints/">Report this content</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-jumptotop-button-menu"><a class="ab-item" href="https://quantumfinancier.wordpress.com/2010/09/12/381/#"><div id="jumptotop" style="top: 0px;"><span class="noticon noticon-top"></span></div></a>		</li>
+		<li id="wp-admin-bar-newdash" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://wordpress.com/">Reader</a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-newdash-default" class="ab-submenu">
+			
+		<li id="wp-admin-bar-streams-header" class="ab-submenu-header">		<div class="ab-item ab-empty-item">Streams</div>		</li>
+		<li id="wp-admin-bar-following" class="inline-action">		<div class="ab-item ab-empty-item"><a href="https://wordpress.com/" class="ab-item ab-primary mb-icon" id="wp-admin-bar-followed-sites">Followed Sites</a><a href="https://wordpress.com/following/edit" class="ab-secondary" id="wp-admin-bar-reader-followed-sites-manage">Manage</a></div>		</li>
+		<li id="wp-admin-bar-discover-discover" class="mb-icon-spacer"><a class="ab-item" href="https://wordpress.com/discover">Discover</a>		</li>
+		<li id="wp-admin-bar-discover-recommended-blogs" class="mb-icon-spacer"><a class="ab-item" href="https://wordpress.com/recommendations">Recommendations</a>		</li>
+		<li id="wp-admin-bar-my-activity-my-likes" class="mb-icon-spacer"><a class="ab-item" href="https://wordpress.com/activities/likes">My Likes</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-admin-bar-likes-widget">		<div class="ab-item ab-empty-item"></div><iframe class="admin-bar-likes-widget jetpack-likes-widget" scrolling="no" frameborder="0" name="admin-bar-likes-widget" src="./GARCH and EGARCH Part 1_files/saved_resource(5).html"></iframe>		</li>		</ul>
+			<ul id="wp-admin-bar-top-secondary" class="ab-top-secondary ab-top-menu">
+			
+		<li id="wp-admin-bar-notes" class="menupop">		<div class="ab-item ab-empty-item"><span id="wpnt-notes-unread-count" class="wpnt-loading wpn-unread"><span class="noticon noticon-comment"></span></span></div><div id="wpnt-notes-panel2" style="display:none" lang="en" dir="ltr" class="wide"><iframe style="" id="wpnt-notes-iframe2" frameborder="0" allowtransparency="true" scrolling="no" src="./GARCH and EGARCH Part 1_files/saved_resource(6).html" class="wide"></iframe></div>		</li>
+		<li id="wp-admin-bar-my-account" class="menupop with-avatar no-grav"><a class="ab-item" aria-haspopup="true" href="https://wordpress.com/me/"><img alt="" src="./GARCH and EGARCH Part 1_files/5eaa21f6dcf569877d587b70ac7f27f0" class="avatar avatar-32" height="32" width="32" originals="32" src-orig="https://2.gravatar.com/avatar/5eaa21f6dcf569877d587b70ac7f27f0?s=32&amp;d=mm&amp;r=G" scale="2"><span class="ab-text">Me</span></a>			<div class="ab-sub-wrapper">		<ul id="wp-admin-bar-user-actions" class="ab-submenu">
+			
+		<li id="wp-admin-bar-user-info" class="user-info user-info-item">		<div class="ab-item ab-empty-item" tabindex="-1"><img alt="" src="./GARCH and EGARCH Part 1_files/5eaa21f6dcf569877d587b70ac7f27f0(1)" class="avatar avatar-128" height="128" width="128" originals="128" scale="2"><span class="display-name">exlwebmaster</span><span class="username"><a class="at-username" href="http://gravatar.com/exlwebmaster">exlwebmaster</a>&nbsp;·&nbsp;<a href="https://quantumfinancier.wordpress.com/wp-login.php?action=logout&amp;redirect_to=https%3A%2F%2Fwordpress.com%2F%3Fapppromo&amp;_wpnonce=d883a57d7f">Sign Out</a></span></div>		</li>
+		<li id="wp-admin-bar-profile-header" class="ab-submenu-header">		<div class="ab-item ab-empty-item">Profile</div>		</li>
+		<li id="wp-admin-bar-my-profile" class="mb-icon"><a class="ab-item" href="https://wordpress.com/me">My Profile</a>		</li>
+		<li id="wp-admin-bar-account-settings" class="mb-icon"><a class="ab-item" href="https://wordpress.com/me/account">Account Settings</a>		</li>
+		<li id="wp-admin-bar-billing" class="mb-icon"><a class="ab-item" href="https://wordpress.com/me/billing">Billing History</a>		</li>
+		<li id="wp-admin-bar-security" class="mb-icon"><a class="ab-item" href="https://wordpress.com/me/security">Security</a>		</li>
+		<li id="wp-admin-bar-notifications" class="mb-icon"><a class="ab-item" href="https://wordpress.com/me/notifications">Notifications</a>		</li>
+		<li id="wp-admin-bar-special-header" class="ab-submenu-header">		<div class="ab-item ab-empty-item">Special</div>		</li>
+		<li id="wp-admin-bar-get-apps" class="mb-icon"><a class="ab-item" href="https://wordpress.com/me/get-apps">Get Apps</a>		</li>
+		<li id="wp-admin-bar-next-steps" class="mb-icon"><a class="ab-item" href="https://wordpress.com/me/next">Next Steps</a>		</li>
+		<li id="wp-admin-bar-help" class="mb-icon"><a class="ab-item" href="https://wordpress.com/help">Help</a>		</li>		</ul>
+	</div>		</li>
+		<li id="wp-admin-bar-ab-new-post"><a class="ab-item" href="https://wordpress.com/post"></a>		</li>		</ul>
+				</div>
+							<a class="screen-reader-shortcut" href="https://quantumfinancier.wordpress.com/wp-login.php?action=logout&amp;_wpnonce=d883a57d7f">Log Out</a>
+					</div>
+
+	
+<img src="./GARCH and EGARCH Part 1_files/g.gif" alt=":)" id="wpstats" scale="0"><script type="text/javascript">
+/* <![CDATA[ */
+var clickDebugLink;
+
+jQuery(document).ready( function($) {
+	var single = true, w = 1000,
+		supe = false;
+
+	$(document.body).load(function(){ $('#wpadminbar img.grav-hashed').removeClass('grav-hashed'); }); // hack to hide the gravatar hovercard
+
+	if ( single && supe )
+		w = 1385;
+	else if ( supe )
+		w = 1200;
+
+	// debug bar extra
+	clickDebugLink = function( parent_id, obj ) {
+
+		$('#'+parent_id).children('div').hide();
+
+		document.getElementById( obj.href.substr( obj.href.indexOf( '#' ) + 1 ) ).style.display = 'block';
+		$( obj.href.substr( obj.href.indexOf( '#' ) ) ).show()
+
+		$(obj).parent().addClass('current').siblings('li').removeClass('current');
+
+		return false;
+	};
+
+	$( '#wpadminbar #wp-admin-bar-shortlink' ).click( function() {
+		$( '#adminbar-shortlink-input' ).select();
+	});
+
+	// skip tap-to-hover on site switcher for mobile
+	if ( 'ontouchstart' in window ) {
+		$('#wp-admin-bar-switch-site').on( 'touchstart', function( event ) {
+			if ( $( window ).width() > 782 ) {
+				return;
+			}
+			event.stopPropagation();
+			$( event.target ).first( 'a' ).click();
+		});
+	}
+
+});
+/* ]]> */
+</script>
+	<div class="wpcom-bubble action-bubble">
+		<div class="bubble-txt"></div>
+	</div>
+	<script type="text/javascript">function hideBubble() { jQuery('body').append( jQuery( 'div.wpcom-bubble' ).removeClass( 'fadein' ) ).off( 'click.bubble touchstart.bubble' ); jQuery(document).off( 'scroll.bubble' ); };</script>
+		<script type="text/javascript">
+	jQuery( '#wp-admin-bar-jumptotop-button-menu a' ).click( function( e ) {
+		e.preventDefault();
+		jQuery( 'html, body' ).animate( { scrollTop: 0 }, 'fast' );
+	} );
+	function hideShowTbJumpToTop() {
+		var total_width = 0;
+		// Calculate total width taken by items minus our button to see if it'll
+		// overlap with other toolbar menus.
+		jQuery( '#wp-admin-bar-root-default > li' ).each( function() {
+			var self = jQuery( this );
+			if ( 'wp-admin-bar-jumptotop-button-menu' != self.attr( 'id' ) )
+				total_width += self.width();
+		});
+		if ( jQuery( '#wp-admin-bar-jumptotop-button-menu' ).position()['left'] - total_width < 10 ) {
+			jQuery( '#jumptotop' ).animate( { 'top': '-50px' }, 'fast' );
+		} else if (  jQuery( window ).scrollTop() >= 350 && parseInt( jQuery( '#jumptotop' ).css( 'top' ) ) < 0 ) {
+			if ( jQuery( '#wp-admin-bar-jumptotop-button-menu' ).position()['left'] - total_width < 10 )
+			   return;
+			jQuery( '#jumptotop' ).animate( { 'top': 0 }, 'fast' );
+		} else if (  jQuery( window ).scrollTop() < 1 && parseInt( jQuery( '#jumptotop' ).css( 'top' ) ) >= 0 ) {
+			jQuery( '#jumptotop' ).animate( { 'top': '-50px' }, 'fast' );
+		}
+	}
+	// handle on page load if auto scrolling to a position
+	hideShowTbJumpToTop();
+	// bind to scrolll event
+	var jumpToTopTimer = null;
+	jQuery( window ).scroll( function() {
+		clearTimeout( jumpToTopTimer );
+		jumpToTopTimer = setTimeout( jumpToTopRefresh, 150 );
+	} );
+	var jumpToTopRefresh = function() {
+		hideShowTbJumpToTop();
+	};
+	</script>
+	<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+<div id="sharing_email" style="display: none;">
+		<form action="https://quantumfinancier.wordpress.com/2010/09/12/381/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+							<input type="hidden" name="source_name" value="exlwebmaster">
+				<input type="hidden" name="source_email" value="exl.webmaster@gmail.com">
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off">
+			<script> document.getElementById('jetpack-source_f_name').value = ''; </script>
+			<div class="recaptcha" id="sharing_recaptcha"></div><input type="hidden" name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo">
+			<img style="float: right; display: none" class="loading" src="./GARCH and EGARCH Part 1_files/loading.gif" alt="loading" width="16" height="16" scale="0">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a rel="nofollow" href="https://quantumfinancier.wordpress.com/2010/09/12/381/#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div></body></html>
