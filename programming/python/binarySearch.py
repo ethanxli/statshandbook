@@ -11,7 +11,6 @@ def binarysearch(array,num):
 
         if(array[mid]==num):
             return mid
-
         if(array[mid] < num):
             left = mid + 1
         elif(array[mid] > num):
@@ -19,6 +18,20 @@ def binarysearch(array,num):
 
     return -1
 
+
+
+
+def BFS(graph, node, visited=None):
+    if visited is None:
+        visited = set()
+
+    print 'Visiting', node
+    visited.add(node)
+
+    for next in graph[node]:
+        if next not in visited:
+            BFS(graph, next, visited)
+    return visited
 
 
 
