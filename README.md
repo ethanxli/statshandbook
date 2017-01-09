@@ -1,10 +1,10 @@
-# statshandbook
-Repo of simply explained, important statistical concepts
+# Handbook
+Repo of simply explained, important statistical, numerical and engineering/comp science concepts.
 
 #### Gradient Boosted Trees
 Gradient Tree Boosting or Gradient Boosted Regression Trees (GBRT) is a generalization of boosting to arbitrary differentiable loss functions.
 
-The first tree we fit on original data. THe second tree we fit to residuals to first tree. etc. The residual approximates negative gradient . final tree is all gradient steps.
+The first tree we fit on original data. The second tree we fit to residuals to first tree. etc. The residual approximates negative gradient. Final tree is all gradient steps.
 
 #### Hessian (Matrix)
 The second order partial derivatives of a function. Used in a second derivative test to find extreme values of functions of more than one variable.
