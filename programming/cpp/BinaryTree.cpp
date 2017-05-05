@@ -72,6 +72,39 @@ void DFTraversal(Node* root){
 
 }
 
+////////////////////////////////////////////////////////
+// flatten a binary tree into a linkedlist.
+////////////////////////////////////////////////////////////
+void flatten(Node *root) {
+
+    if (!root) return;
+
+    Node* node = root;
+    while (node) {
+
+        // Attatches the right sub-tree to the rightmost leaf of the left sub-tree:
+        if (node->left) {
+
+            Node *rightMost = node->left;
+
+            //get the right most node.
+            while (rightMost->right) {
+                rightMost = rightMost->right;
+            }
+            rightMost->right = node->right;
+
+            // Makes the left sub-tree to the right sub-tree:
+            node->right = node->left;
+            node->left = NULL;
+        }
+
+        // Flatten the rest of the tree:
+        node = node->right;
+    }
+}
+
+
+
 
 //    3
 //  1  2

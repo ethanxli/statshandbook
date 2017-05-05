@@ -54,6 +54,10 @@ int knapsack(int W, int wt[], int val[], int n){
 // Find maximum sum path from (1,1) to (n,n) in a matrix.
 //
 
+
+
+//fibonacci sequence
+
 int fibonacci(int n){
   int arr[n];
 
@@ -76,6 +80,23 @@ and another integer S. Now we need to find three different integers in the array
 whose sum is closest to the given integer S. If there exists more than one solution,
 any of them is ok. Is there an algorithm to find the three integers in O(n^2) time?
 */
+
+void closestSum(int[] arr, int n, int s, int[] sol){
+
+  for(int i = 0; i < n; i++){
+    diff = s - arr[i];
+
+    mindiff =
+    for(int j = i+1; j<n; j++){
+        if
+    }
+
+
+  }
+
+}
+
+
 
 ////////////////////////////////////////////////
 

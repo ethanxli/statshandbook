@@ -3,7 +3,9 @@ Repo of simply explained, important, statistical, numerical and engineering/comp
 
 ### Bootstrapping
 
-TODO
+Bootstrapping is an option to derive confidence intervals in cases when you are doubting the normality of your data.
+
+The idea: We have just one dataset. When we compute a statistic on the data, we only know that one statistic — we don’t see how variable that statistic is. The bootstrap creates a large number of datasets that we might have seen and computes the statistic on each of these datasets. Thus we get a distribution of the statistic. Resampling is done to provide an estimate of the sampling distribution of the sample statistic in question.
 
 
 ### Bayesian Inference
@@ -58,6 +60,12 @@ Mathematically, the natural frequency can be characterized by the eigenvalue of 
 
 Eigenvectors are the "axes" (directions) along which a linear transformation acts simply by "stretching/compressing" and/or "flipping"; eigenvalues give you the factors by which this compression occurs.
 
+### Gauss Markov Theorem
+
+Gauss–Markov theorem states that in a linear regression model in which the errors have expectation zero and are uncorrelated and have equal variances, the best linear unbiased estimator (BLUE) of the coefficients is given by the ordinary least squares (OLS) estimator. Here "best" means giving the lowest variance of the estimate, as compared to other unbiased, linear estimators.  However, normality is required neither for the consistency and efficiency of the OLS estimator nor for the Gauss-Markov theorem to hold.
+
+A high degree of multicollinearity means inflated variance of the OLS estimator.
+
 
 ### (Gaussian) Distribution
 Normal distributions are used to model far too many different kinds of properties to begin to enumerate in the physical sciences, social sciences, biological sciences, engineering, and on and on.  One reason why it appears so often is the Central limit theorem.  Basically, all properties that arise as an aggregate of many smaller independent (or weakly dependent) contributors will display an approximate normal distribution as long as no small subset of those contributors dominates.
@@ -72,7 +80,8 @@ Gradient Tree Boosting or Gradient Boosted Regression Trees (GBRT) is a generali
 The first tree we fit on original data. The second tree we fit to residuals to first tree. etc. The residual approximates negative gradient. Final tree is all gradient steps.
 
 ### Hessian (Matrix)
-The second order partial derivatives of a function. Used in a second derivative test to find extreme values of functions of more than one variable.
+The second order partial derivatives of a function.
+Used in a second derivative test to find extreme values of functions of more than one variable.
 
 ### Kaplan Meier Estimator
 A non-parametric statistic used to estimate the survival function from lifetime data.
@@ -90,6 +99,15 @@ For instance (see Figure 1), consider the optimization problem
 maximize f(x, y)
 subject to g(x, y) = c.
 
+
+### Maximum Likelihood
+
+Maximze some probability
+
+Likelihood L
+Differitiate dL/dp = 0
+
+Maximizing (log) likelihood (under a gaussian) is equivalent to minimizing sum of squares error.
 
 ### Newton's method
 Newton's method (also known as the Newton–Raphson method), named after Isaac Newton and Joseph Raphson, is a method for finding successively better approximations to the roots (or zeroes) of a real-valued function.
@@ -109,6 +127,9 @@ The probability mass function is given by:
 The integral of a probability density function gives the probability that a random variable falls within some interval.
 Probability mass functions are used for discrete distributions. It assigns a probability to each point in the sample space.
 
+### Softmax Regression
+
+Softmax Regression (synonyms: Multinomial Logistic, Maximum Entropy Classifier, or just Multi-class Logistic Regression) is a generalization of logistic regression that we can use for multi-class classification (under the assumption that the classes are mutually exclusive). In contrast, we use the (standard) Logistic Regression model in binary classification tasks.
 
 ### Standard deviation
 Standard deviation is a measure of dispersion of the data from the mean.
